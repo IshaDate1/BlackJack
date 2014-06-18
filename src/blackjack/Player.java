@@ -6,7 +6,7 @@ public class Player {
 	private BlackJackHand _hand;
 	private String _name = "(no name)";
 	public static int numPlayers = 0;
-	
+	private String _state = "canHit";
 
 	public Player() {
 		_hand = new BlackJackHand();
