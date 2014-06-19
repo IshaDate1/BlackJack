@@ -13,10 +13,11 @@ public class Main {
 		Player dealer = new Player("Dealer", deck.draw(), deck.draw());
 
 		System.out.print(player.printFormatted());
-		while (player.getScore() < 18) {
+		while (player.getScore() <= 17) {
 			player.hit(deck.draw());
 			System.out.print(player.printFormatted());
 		}
+		player.stand();
 		
 		System.out.println("Dealer's turn:\n");
 		System.out.print(dealer.printFormatted());
@@ -24,6 +25,7 @@ public class Main {
 			dealer.hit(deck.draw());
 			System.out.print(dealer.printFormatted());
 		}
+		dealer.stand();
 		
 	}
 
