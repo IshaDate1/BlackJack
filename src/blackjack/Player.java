@@ -3,10 +3,11 @@ package blackjack;
 import cardgame.Card;
 
 public class Player {
-	private BlackJackHand _hand;
+	protected BlackJackHand _hand;
 	protected String _name = "(no name)";
+	protected String _state = "canHit";
+	
 	public static int numPlayers = 0;
-	private String _state = "canHit";
 
 	public Player() {
 		_hand = new BlackJackHand();
