@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import cardgame.Hand;
 import cardgame.Card;
 
-public class BlackJackHand extends Hand {
+public class BlackJackHand extends Hand
+{
 
 	private int _score = 0;
 

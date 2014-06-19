@@ -4,7 +4,7 @@ import cardgame.Card;
 
 public class Player {
 	private BlackJackHand _hand;
-	private String _name = "(no name)";
+	protected String _name = "(no name)";
 	public static int numPlayers = 0;
 	private String _state = "canHit";
 
