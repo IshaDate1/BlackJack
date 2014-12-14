@@ -6,7 +6,7 @@ package cardgame;
 public class Card {
     public static final String suits[] = { "Spades", "Hearts", "Diamonds",
             "Clubs" };
-    public static final String values[] = { "Unused", "Ace", "2", "3", "4",
+    public static final String values[] = { "Joker", "Ace", "2", "3", "4",
             "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
     public static final int numericValues[] = { 0, 11, 2, 3, 4, 5, 6, 7, 8, 9,
             10, 10, 10, 10 };
