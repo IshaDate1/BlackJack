@@ -1,2 +1,5 @@
 /JavaApplication1/nbproject/private/
 /BlackJack/nbproject/private/
+*.xml
+*.mf
+*.properties
