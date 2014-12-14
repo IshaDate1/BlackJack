@@ -8,27 +8,27 @@ import blackjack.DealerPlayer;
 public class Main
 {
 
-	public static void main(String[] args) {
-		Deck deck = new Deck(true);
+    public static void main(String[] args) {
+        Deck deck = new Deck(true);
 
-		Player player = new Player("George", deck.draw(), deck.draw());
-		DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
+        Player player = new Player("George", deck.draw(), deck.draw());
+        DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
 
-		System.out.print(player.printFormatted());
-		while (player.getScore() <= 17) {
-			player.hit(deck.draw());
-			System.out.print(player.printFormatted());
-		}
-		player.stand();
+        System.out.print(player.printFormatted());
+        while (player.getScore() <= 17) {
+            player.hit(deck.draw());
+            System.out.print(player.printFormatted());
+        }
+        player.stand();
 
-		System.out.println("Dealer's turn:\n");
-		System.out.print(dealer.printFormatted());
-		while (dealer.getState() == "canHit") {
-			dealer.hit(deck.draw());
-			System.out.print(dealer.printFormatted());
-		}
-		dealer.stand();
+        System.out.println("Dealer's turn:\n");
+        System.out.print(dealer.printFormatted());
+        while (dealer.getState() == "canHit") {
+            dealer.hit(deck.draw());
+            System.out.print(dealer.printFormatted());
+        }
+        dealer.stand();
 
-	}
+    }
 
 }
