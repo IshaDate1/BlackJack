@@ -59,7 +59,7 @@ public class Main
             dealer.hit(deck.draw());
             System.out.print(dealer.printFormatted());
         }
-        dealer.stand();
+	
 
     }
 

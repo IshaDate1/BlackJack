@@ -34,7 +34,20 @@ public class Player
         String toPrint = "";
         toPrint += getName() + "'s cards:\n";
         toPrint += _hand.toString();
-        toPrint += "\nScore: " + _hand.getScore() + "\n---------------\n";
+        toPrint += "\nScore: " + _hand.getScore() + "\n";
+	if(_state == "bust")
+	{
+	    toPrint += "\n" + _name + " busted!\n";
+	}
+	else if(_state == "blackjack")
+	{
+	    toPrint += "\nBlackJack!\n";
+	}
+	else if(_state == "stand")
+	{
+	    toPrint += "\n" + _name + " stands!\n";
+	}
+	toPrint += "---------------\n";
         return toPrint;
     }
 
@@ -62,7 +75,7 @@ public class Player
     {
         if (_state == "canHit") 
         {
-            _state = "standing";
+            _state = "stand";
             return true;
         } else
             return false;
