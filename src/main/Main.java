@@ -11,7 +11,8 @@ import java.io.InputStreamReader;
 public class Main
 {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException 
+    {
         BufferedReader br = 
             new BufferedReader(new InputStreamReader(System.in));
         
@@ -21,7 +22,8 @@ public class Main
         DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
 
         System.out.print(player.printFormatted());
-        while (player.getState() == "canHit") {
+        while (player.getState() == "canHit") 
+        {
             System.out.print(player.getName() + "'s turn: ");
             String decision = br.readLine();
             switch(decision)
@@ -45,7 +47,8 @@ public class Main
 
         System.out.println("Dealer's turn:\n");
         System.out.print(dealer.printFormatted());
-        while (dealer.getState() == "canHit") {
+        while (dealer.getState() == "canHit") 
+        {
             dealer.hit(deck.draw());
             System.out.print(dealer.printFormatted());
         }
