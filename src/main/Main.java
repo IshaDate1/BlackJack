@@ -21,8 +21,8 @@ public class Main
         ArrayList<Player> players = new ArrayList<Player>(0);
         
         players.add(new Player("George", deck.draw(), deck.draw()));
-        players.add(new Player("Mike", deck.draw(), deck.draw()));
-        players.add(new Player("Jack", deck.draw(), deck.draw()));
+        players.add(new Player("John", deck.draw(), deck.draw()));
+        players.add(new Player("Evi", deck.draw(), deck.draw()));
         
         DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
         
@@ -59,8 +59,43 @@ public class Main
             dealer.hit(deck.draw());
             System.out.print(dealer.printFormatted());
         }
-	
-
+        
+        int dealerScore = dealer.getScore();
+        int playerScore = 0; //iterate through user scores
+        if(dealer.getState() != "bust")
+        {
+            for(Player current : players)
+            {
+                playerScore = current.getScore();
+                if(current.getState() == "bust")
+                {
+                    System.out.println(current.getName() + " busted!");
+                }
+                else if(playerScore > dealerScore)
+                {
+                    System.out.println(current.getName() + " won over the Dealer!");
+                }
+                else if(playerScore == dealerScore)
+                {
+                    System.out.println(current.getName() + " tied with the Dealer!");
+                }
+                else
+                {
+                    System.out.println(current.getName() + " lost to the Dealer!");
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Dealer Busted!");
+            for(Player current : players)
+            {
+                if(current.getState() != "bust") 
+                {
+                    System.out.println(current.getName() + " won over the Dealer!");
+                }
+            }
+        }
     }
 
 }
