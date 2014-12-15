@@ -5,11 +5,6 @@ import cardgame.Card;
 public class DealerPlayer extends Player
 {
 
-    public DealerPlayer() {
-        super();
-        super._name = "Dealer";
-    }
-
     public DealerPlayer(Card card1, Card card2) {
         super("Dealer", card1, card2);
         if(this.getScore() >= 17)

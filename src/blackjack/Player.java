@@ -9,12 +9,8 @@ public class Player {
     
     public static int numPlayers = 0;
 
-    public Player() {
-        _hand = new BlackJackHand();
-    }
-
     public Player(String name) {
-        this();
+        _hand = new BlackJackHand();
         _name = name;
     }
 
