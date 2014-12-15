@@ -7,6 +7,8 @@ public class Player
     protected BlackJackHand _hand;
     protected String _name = "(no name)";
     protected String _state = "canHit";
+    
+    public static int numPlayers = 0;
 
     public Player(String name) 
     {
