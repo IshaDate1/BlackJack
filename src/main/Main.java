@@ -17,6 +17,7 @@ public class Main
             new BufferedReader(new InputStreamReader(System.in));
         
         Deck deck = new Deck(true);
+        int numPlayers = 0;
 
         Player player = new Player("George", deck.draw(), deck.draw());
         DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
