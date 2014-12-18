@@ -86,7 +86,7 @@ public class Main
 			
 			int x = ((PLAYER_SPACE-textWidth)/2) + i*PLAYER_SPACE;
 			int y = (HEIGHT * 6) / 16;
-			current.setBounds(x, y, textWidth, 20);
+			current.setBounds(x, y, textWidth, textHeight);
 			
 		}
 		dealerLabel.setText("Dealer's Cards:");
@@ -97,7 +97,7 @@ public class Main
 
 		int x = ((WIDTH-textWidth)/2);
 		int y = (HEIGHT) / 16;
-		dealerLabel.setBounds(x, y, textWidth, 20);
+		dealerLabel.setBounds(x, y, textWidth, textHeight);
 		BJFrame.add(dealerLabel);
 		
 		BJFrame.add(controlPanel);
