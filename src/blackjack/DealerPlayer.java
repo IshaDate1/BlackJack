@@ -26,4 +26,9 @@ public class DealerPlayer extends Player
         else
             throw new RuntimeException("Can't hit. Object state: " + _state);
     }
+
+    public Card getPocketCard()
+    {
+        return _hand.getCards().get(0);
+    }
 }

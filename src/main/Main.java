@@ -19,13 +19,28 @@ public class Main
         
         Deck deck = new Deck(true);
         ArrayList<Player> players = new ArrayList<Player>(0);
-        
-        players.add(new Player("George", deck.draw(), deck.draw()));
-        players.add(new Player("John", deck.draw(), deck.draw()));
-        players.add(new Player("Evi", deck.draw(), deck.draw()));
+
+        int numPlayers;
+        System.out.println("How many players? (Max of 10 players allowed)");
+        numPlayers = Integer.parseInt(br.readLine());
+        if(numPlayers < 1 || numPlayers > 10)
+        {
+            throw new IllegalArgumentException("invalid number of players ("
+                + numPlayers + ")");
+        }
+
+        for(int i = 1; i <= numPlayers; i++)
+        {
+            System.out.println("Name of player" + i + ": ");
+            String name = br.readLine();
+            players.add(new Player(name, deck.draw(), deck.draw()));
+        }
+        System.out.println("==============");
         
         DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
-        
+        System.out.println("Dealer's card: " + dealer.getPocketCard().toString());
+        System.out.println("==============");
+
         for (Player player : players)
         {
             System.out.print(player.printFormatted());
@@ -44,6 +59,8 @@ public class Main
                     case "double": case "split":
                         System.out.println("Unimplemented feature!");
                         break;
+                    case "help":
+                        System.out.println("Commands:\nhit\nstand\nhelp");
                     default:
                         System.out.println("Unrecognized input, try again:");
                 }
@@ -69,20 +86,21 @@ public class Main
                 playerScore = current.getScore();
                 if(current.getState() == "bust")
                 {
-                    System.out.println(current.getName() + " busted!");
+                    System.out.print(current.getName() + " busted!");
                 }
                 else if(playerScore > dealerScore)
                 {
-                    System.out.println(current.getName() + " won over the Dealer!");
+                    System.out.print(current.getName() + " won over the Dealer!");
                 }
                 else if(playerScore == dealerScore)
                 {
-                    System.out.println(current.getName() + " tied with the Dealer!");
+                    System.out.print(current.getName() + " tied with the Dealer!");
                 }
                 else
                 {
-                    System.out.println(current.getName() + " lost to the Dealer!");
+                    System.out.print(current.getName() + " lost to the Dealer!");
                 }
+                System.out.println(" (Score of " + current.getScore() + ")");
             }
         }
         else
@@ -93,6 +111,10 @@ public class Main
                 if(current.getState() != "bust") 
                 {
                     System.out.println(current.getName() + " won over the Dealer!");
+                }
+                else
+                {
+                    System.out.println(current.getName() + " busted!");
                 }
             }
         }

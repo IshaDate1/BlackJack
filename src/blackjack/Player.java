@@ -35,19 +35,27 @@ public class Player
         toPrint += getName() + "'s cards:\n";
         toPrint += _hand.toString();
         toPrint += "\nScore: " + _hand.getScore() + "\n";
-	if(_state == "bust")
-	{
-	    toPrint += "\n" + _name + " busted!\n";
-	}
-	else if(_state == "blackjack")
-	{
-	    toPrint += "\nBlackJack!\n";
-	}
-	else if(_state == "stand")
-	{
-	    toPrint += "\n" + _name + " stands!\n";
-	}
-	toPrint += "---------------\n";
+
+        if(_state == "bust")
+        {
+            toPrint += "\n" + _name + " busted!\n";
+            toPrint += "---------------\n";
+        }
+        else if(_state == "blackjack")
+        {
+            toPrint += "\nBlackJack!\n";
+            toPrint += "---------------\n";
+        }
+        else if(_state == "stand")
+        {
+            toPrint += "\n" + _name + " stands!\n";
+            toPrint += "===============\n";
+        }
+        else
+        {
+            toPrint += "---------------\n";
+        }
+
         return toPrint;
     }
 
