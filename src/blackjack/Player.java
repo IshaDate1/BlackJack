@@ -39,12 +39,12 @@ public class Player
         if(_state == "bust")
         {
             toPrint += "\n" + _name + " busted!\n";
-            toPrint += "---------------\n";
+            toPrint += "===============\n";
         }
         else if(_state == "blackjack")
         {
             toPrint += "\nBlackJack!\n";
-            toPrint += "---------------\n";
+            toPrint += "===============\n";
         }
         else if(_state == "stand")
         {

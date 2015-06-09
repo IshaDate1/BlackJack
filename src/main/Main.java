@@ -37,11 +37,11 @@ public class Main
             String name = br.readLine();
             players.add(new Player(name, deck.draw(), deck.draw()));
         }
-        System.out.println("==============");
+        System.out.println("================");
         
         DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
         System.out.println("Dealer's card: " + dealer.getPocketCard().toString());
-        System.out.println("==============");
+        System.out.println("===============");
 
         for (Player player : players)
         {
@@ -62,7 +62,7 @@ public class Main
                         System.out.println("Unimplemented feature!");
                         break;
                     case "h":
-                        System.out.println("==============\nCommands:\nhit\nstand\nhelp\n==============");
+                        System.out.println("===============\nCommands:\nhit\nstand\nhelp\n===============");
                         break;
                     default:
                         System.out.println("Unrecognized input, try again:");
@@ -70,6 +70,9 @@ public class Main
 
                 System.out.print(player.printFormatted());
             }
+            System.out.println("Press Enter to continue");
+            System.in.read();
+            System.out.println("===============");
         }
 
         System.out.println("Dealer's turn:\n");
@@ -108,7 +111,7 @@ public class Main
         }
         else
         {
-            System.out.println("Dealer Busted!");
+            System.out.println("Dealer busted!");
             for(Player current : players)
             {
                 if(current.getState() != "bust") 
