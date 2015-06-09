@@ -17,7 +17,7 @@ public class Main
         BufferedReader br = 
             new BufferedReader(new InputStreamReader(System.in));
         
-        Deck deck = new Deck(true);
+        Deck deck = new Deck(true); // Generate a new shuffled deck
         ArrayList<Player> players = new ArrayList<Player>(0);
 
         int numPlayers;
@@ -33,8 +33,15 @@ public class Main
 
         for(int i = 1; i <= numPlayers; i++)
         {
-            System.out.println("Name of player" + i + ": ");
+            System.out.println("Name of Player " + i + ": ");
             String name = br.readLine();
+            if (name.length() > 40)
+            {
+                System.out.println("Name is too long, try again. (Max of 40 characters)");
+                i --; // Redo the current iteration
+                continue;
+            }
+
             players.add(new Player(name, deck.draw(), deck.draw()));
         }
         System.out.println("================");
