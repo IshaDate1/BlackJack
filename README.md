@@ -4,6 +4,6 @@
 1. Run ```generate.sh```. You only have to do this once
   * You can run ```clean.sh``` to remove the build directory with all compiled code.
 2. ```cd``` into the ```build``` directory
-3. Run ```build.sh``` to compile the code.
+3. Run ```build.sh``` to compile the code. Make sure the path to javac is in your environment path variable.
 4. Run ```run.sh``` to run the game!
 
