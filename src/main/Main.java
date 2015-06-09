@@ -21,6 +21,8 @@ public class Main
         ArrayList<Player> players = new ArrayList<Player>(0);
 
         int numPlayers;
+        System.out.println("Welcome to George's Java BlackJack!");
+        System.out.println("Type h for help when your turn comes");
         System.out.println("How many players? (Max of 10 players allowed)");
         numPlayers = Integer.parseInt(br.readLine());
         if(numPlayers < 1 || numPlayers > 10)
@@ -46,7 +48,7 @@ public class Main
             System.out.print(player.printFormatted());
             while (player.getState() == "canHit") 
             {
-                System.out.print(player.getName() + "'s turn: ");
+                System.out.print(player.getName() + "'s turn (h for help): ");
                 String decision = br.readLine();
                 switch(decision)
                 {
@@ -59,8 +61,9 @@ public class Main
                     case "double": case "split":
                         System.out.println("Unimplemented feature!");
                         break;
-                    case "help":
-                        System.out.println("Commands:\nhit\nstand\nhelp");
+                    case "h":
+                        System.out.println("==============\nCommands:\nhit\nstand\nhelp\n==============");
+                        break;
                     default:
                         System.out.println("Unrecognized input, try again:");
                 }
