@@ -8,7 +8,7 @@ import cardgame.Card;
 public class BlackJackHand extends Hand
 {
 
-    private int _score = 0;
+    private int _score;
 
     public BlackJackHand() 
     {
@@ -21,7 +21,16 @@ public class BlackJackHand extends Hand
         this.add(card1);
         this.add(card2);
 
-        _score += card1.getNumericValue() + card2.getNumericValue();
+        _score = card1.getNumericValue() + card2.getNumericValue();
+    }
+
+    // Start a new black jack hand (after first round is over)
+    public void newHand(Card card1, Card card2)
+    {
+        this.add(card1);
+        this.add(card2);
+
+        _score = card1.getNumericValue() + card2.getNumericValue();
     }
 
     public int getScore() 

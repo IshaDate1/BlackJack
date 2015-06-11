@@ -12,11 +12,6 @@ public class Hand
         cards = new ArrayList<Card>();
     }
 
-    public Hand(String name) 
-    {
-        this();
-    }
-
     public void add(Card card) 
     {
         cards.add(card);
@@ -37,5 +32,12 @@ public class Hand
     public ArrayList<Card> getCards() 
     {
         return cards;
+    }
+
+    public ArrayList<Card> returnCards()
+    {
+        ArrayList<Card> toreturn = new ArrayList<Card> (cards); 
+        cards.clear();
+        return toreturn;
     }
 }

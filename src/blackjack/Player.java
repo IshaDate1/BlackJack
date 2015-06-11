@@ -1,6 +1,8 @@
 package blackjack;
 
+import java.util.ArrayList;
 import cardgame.Card;
+import cardgame.Hand;
 
 public class Player 
 {
@@ -10,16 +12,18 @@ public class Player
     
     public static int numPlayers = 0;
 
-    public Player(String name) 
-    {
-        _hand = new BlackJackHand();
-        _name = name;
-    }
-
     public Player(String name, Card card1, Card card2) 
     {
-        this(name);
+        _name = name;
         _hand = new BlackJackHand(card1, card2);
+        if (_hand.getScore() == 21)
+            _state = "blackjack";
+    }
+
+    public void newHand(Card card1, Card card2)
+    {
+        _state = "canHit";
+        _hand.newHand(card1, card2);
         if (_hand.getScore() == 21)
             _state = "blackjack";
     }
@@ -92,5 +96,15 @@ public class Player
     public String getState() 
     {
         return _state;
+    }
+
+    public Hand getHand()
+    {
+        return _hand;
+    }
+
+    public ArrayList<Card> resetHand()
+    {
+        return _hand.returnCards();
     }
 }

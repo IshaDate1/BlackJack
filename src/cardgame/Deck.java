@@ -75,6 +75,11 @@ public class Deck
         return cards.remove(0);
     }
 
+    public void returnCards(ArrayList<Card> toreturn)
+    {
+        cards.addAll(toreturn);
+    }
+
     /**
      * Gets the number of cards in the deck
      * 
