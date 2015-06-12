@@ -7,6 +7,7 @@ import cardgame.Hand;
 public class Player 
 {
     private int _money;
+    private int _bet;
     protected BlackJackHand _hand;
     protected String _name = "(no name)";
     protected String _state = "canHit";
@@ -33,11 +34,6 @@ public class Player
         _hand.newHand(card1, card2);
         if (_hand.getScore() == 21)
             _state = "blackjack";
-    }
-
-    public String getName() 
-    {
-        return _name;
     }
 
     public String printFormatted() 
@@ -70,9 +66,10 @@ public class Player
         return toPrint;
     }
 
-    public int getScore() 
+    public void bet(int amount)
     {
-        return _hand.getScore();
+        _bet = amount;
+        _money -= amount;
     }
 
     public void hit(Card card) 
@@ -100,19 +97,56 @@ public class Player
             return false;
     }
 
-    public String getState() 
+    public void payDealer()
     {
-        return _state;
+        // Dealer has infinite money, so just reset the amount bet
+        _bet = 0;
     }
 
-    public Hand getHand()
+    public void tie()
     {
-        return _hand;
+        // Don't lose any money
+        _money += _bet;
+        _bet = 0;
+    }
+
+    public void winDealer()
+    {
+        // Receive your original bet + same amount from dealer
+        _money += 2 * _bet;
+        _bet = 0;
+    }
+
+    public void blackjack()
+    {
+        // Dealer pays 1.5 times the original bet in addition to original bet
+        _money += 2.5 * _bet;
+        _bet = 0;
     }
 
     public ArrayList<Card> resetHand()
     {
         return _hand.returnCards();
+    }
+
+    public String getName() 
+    {
+        return _name;
+    }
+
+    public String getState() 
+    {
+        return _state;
+    }
+
+    public int getScore() 
+    {
+        return _hand.getScore();
+    }
+
+    public Hand getHand()
+    {
+        return _hand;
     }
 
     public int getMoney()

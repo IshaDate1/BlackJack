@@ -20,17 +20,20 @@ public class Main
         Deck deck = new Deck(true); // Generate a new shuffled deck
         ArrayList<Player> players = new ArrayList<Player>(0);
 
-        int numPlayers;
         System.out.println("Welcome to George's Java BlackJack!");
         System.out.println("Type h for help when your turn comes");
+
+        int numPlayers = -1; // Initialize so that while loop will run at least once
         System.out.println("How many players? (Max of 10 players allowed)");
-        numPlayers = Integer.parseInt(br.readLine());
-        if(numPlayers < 1 || numPlayers > 10)
+        numPlayers = parseInt(br.readLine());
+
+        while(numPlayers < 1 || numPlayers > 10)
         {
-            throw new IllegalArgumentException("invalid number of players ("
-                + numPlayers + ")");
+            System.out.print("Bad input, try again: ");
+            numPlayers = parseInt(br.readLine());
         }
 
+        // Grab Players' names
         for(int i = 1; i <= numPlayers; i++)
         {
             System.out.println("Name of Player " + i + ": ");
@@ -51,9 +54,36 @@ public class Main
         while (true) 
         {
             System.out.println("================");
+            System.out.println("Enter amount of money to bet for this round, and press enter");
+
+            ArrayList<Player> playersToRemove = new ArrayList<Player> ();
             for(Player player : players)
             {
-                System.out.println(player.getName() + " has $" + player.getMoney() + " left");
+                int moneyLeft = player.getMoney();
+                // Add broke players to temporary array to remove later
+                if(moneyLeft == 0)
+                {
+                    System.out.println(player.getName() + " has no more money left!");
+                    playersToRemove.add(player);
+                    continue;
+                }
+
+                System.out.print("($" + moneyLeft + " left) " + player.getName() + " bets ");
+                int bet = parseInt(br.readLine());
+                while(bet < 1 || bet > moneyLeft)
+                {
+                    System.out.print("You can't bet that much! Try again: ");
+                    bet = parseInt(br.readLine());
+                }
+                player.bet(bet);
+            }
+            // Remove broke players
+            players.removeAll(playersToRemove);
+
+            if(players.size() == 0)
+            {
+                System.out.println("No more players left!");
+                break;
             }
 
             // Reveal Dealer's one card
@@ -79,7 +109,7 @@ public class Main
                         case "double": case "split":
                             System.out.println("Unimplemented feature!");
                             break;
-                        case "exit":
+                        case "exit": case "quit": case "stop":
                             System.out.println("Have a nice day!");
                             System.exit(0);
                         case "h":
@@ -87,7 +117,7 @@ public class Main
                             System.out.println("hit   - receive another card from the deck");
                             System.out.println("stand - stop receiving cards; next player's turn");
                             System.out.println("help  - display this help message");
-                            System.out.println("exit  - stop this game");
+                            System.out.println("exit/quit/stop  - stop this game");
                             break;
                         default:
                             System.out.println("Unrecognized input, try again");
@@ -120,18 +150,30 @@ public class Main
                     if(current.getState() == "bust")
                     {
                         System.out.print(current.getName() + " busted!");
+                        current.payDealer();
                     }
                     else if(playerScore > dealerScore)
                     {
-                        System.out.print(current.getName() + " won over the Dealer!");
+                        if(current.getState() == "blackjack")
+                        {
+                            System.out.print(current.getName() + " has BlackJack!");
+                            current.blackjack();
+                        }
+                        else
+                        {
+                            System.out.print(current.getName() + " won over the Dealer!");
+                            current.winDealer();
+                        }
                     }
                     else if(playerScore == dealerScore)
                     {
                         System.out.print(current.getName() + " tied with the Dealer!");
+                        current.tie();
                     }
                     else
                     {
                         System.out.print(current.getName() + " lost to the Dealer!");
+                        current.payDealer();
                     }
                     //Additionally, print the score of the player
                     System.out.println(" (Score of " + current.getScore() + ")"); 
@@ -145,11 +187,21 @@ public class Main
                 {
                     if(current.getState() != "bust") 
                     {
-                        System.out.println(current.getName() + " won over the Dealer!");
+                        if(current.getState() == "blackjack")
+                        {
+                            System.out.println(current.getName() + " has BlackJack!");
+                            current.blackjack();
+                        }
+                        else
+                        {
+                            System.out.println(current.getName() + " won over the Dealer!");
+                            current.winDealer();
+                        }
                     }
                     else
                     {
-                        System.out.println(current.getName() + " busted!");
+                        System.out.println(current.getName() + " busted too! (no money lost)");
+                        current.tie();
                     }
                 }
             }
@@ -175,4 +227,29 @@ public class Main
         }
     }
 
+    //For our purposes, parse a non-negative number that has less than 7 digits
+    private static int parseInt(String toParse)
+    {
+        int length = toParse.length();
+        if(length > 7)
+            return -1;
+
+        int num = 0;
+        for(int i = 0; i < length; i ++)
+        {
+            char current = toParse.charAt(i);
+            if( (int) current < '0' && (int) current > '9')
+                return -1;
+            int digit = current - '0';
+
+            num *= 10;
+            num += digit;
+        }
+
+        return num;
+    }
+
 }
+
+
+
