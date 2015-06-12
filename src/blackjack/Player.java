@@ -6,6 +6,7 @@ import cardgame.Hand;
 
 public class Player 
 {
+    private int _money;
     protected BlackJackHand _hand;
     protected String _name = "(no name)";
     protected String _state = "canHit";
@@ -14,7 +15,13 @@ public class Player
 
     public Player(String name, Card card1, Card card2) 
     {
+        this(name, card1, card2, 1000);
+    }
+
+    public Player(String name, Card card1, Card card2, int money)
+    {
         _name = name;
+        _money = money; 
         _hand = new BlackJackHand(card1, card2);
         if (_hand.getScore() == 21)
             _state = "blackjack";
@@ -106,5 +113,10 @@ public class Player
     public ArrayList<Card> resetHand()
     {
         return _hand.returnCards();
+    }
+
+    public int getMoney()
+    {
+        return _money;
     }
 }

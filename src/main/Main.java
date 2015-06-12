@@ -50,10 +50,16 @@ public class Main
         // Main Game Loop
         while (true) 
         {
+            System.out.println("================");
+            for(Player player : players)
+            {
+                System.out.println(player.getName() + " has $" + player.getMoney() + " left");
+            }
+
             // Reveal Dealer's one card
             System.out.println("================");
             System.out.println("Dealer's card: " + dealer.getPocketCard().toString());
-            System.out.println("===============");
+            System.out.println("================");
 
             for (Player player : players)
             {
@@ -73,14 +79,18 @@ public class Main
                         case "double": case "split":
                             System.out.println("Unimplemented feature!");
                             break;
-                        case "h":
-                            System.out.println("===============\nCommands:\nhit\nstand\nhelp\nstop\n===============");
-                            break;
-                        case "stop":
+                        case "exit":
                             System.out.println("Have a nice day!");
                             System.exit(0);
+                        case "h":
+                            System.out.println("===============\nCommands:");
+                            System.out.println("hit   - receive another card from the deck");
+                            System.out.println("stand - stop receiving cards; next player's turn");
+                            System.out.println("help  - display this help message");
+                            System.out.println("exit  - stop this game");
+                            break;
                         default:
-                            System.out.println("Unrecognized input, try again:");
+                            System.out.println("Unrecognized input, try again");
                     }
 
                     System.out.print(player.printFormatted());
