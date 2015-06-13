@@ -10,12 +10,12 @@ public class BlackJackHand extends Hand
 
     private int _score;
 
-    public BlackJackHand() 
+    public BlackJackHand()
     {
         super();
     }
 
-    public BlackJackHand(Card card1, Card card2) 
+    public BlackJackHand(Card card1, Card card2)
     {
         this();
         this.add(card1);
@@ -33,30 +33,31 @@ public class BlackJackHand extends Hand
         _score = card1.getNumericValue() + card2.getNumericValue();
     }
 
-    public int getScore() 
+    public int getScore()
     {
         return _score;
     }
 
-    public void hit(Card card) 
+    public void hit(Card card)
     {
         super.add(card);
         _score += card.getNumericValue();
-        if (_score > 21)
+        if(_score > 21)
             reduceAces();
     }
 
-    private boolean reduceAces() 
+    private boolean reduceAces()
     {
         ArrayList<Card> cards = super.getCards();
-        for (Card card : cards) 
+        for(Card card : cards)
         {
-            if (_score > 21) 
-            { // prevent unnecessary reductions
-                if (card.getValue() == "Ace" && card.getNumericValue() == 11) 
+            if(_score > 21)
+            {
+                // prevent unnecessary reductions
+                if(card.getValue() == "Ace" && card.getNumericValue() == 11)
                 {
                     boolean reduced = card.reduce();
-                    if (reduced) 
+                    if(reduced)
                     {
                         // only reduce the score if the reduction is happening
                         _score -= 10;

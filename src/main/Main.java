@@ -12,11 +12,11 @@ import java.io.InputStreamReader;
 public class Main
 {
 
-    public static void main(String[] args) throws IOException 
+    public static void main(String[] args) throws IOException
     {
-        BufferedReader br = 
+        BufferedReader br =
             new BufferedReader(new InputStreamReader(System.in));
-        
+
         Deck deck = new Deck(true); // Generate a new shuffled deck
         ArrayList<Player> players = new ArrayList<Player>(0);
 
@@ -38,7 +38,7 @@ public class Main
         {
             System.out.println("Name of Player " + i + ": ");
             String name = br.readLine();
-            if (name.length() > 40)
+            if(name.length() > 40)
             {
                 System.out.println("Name is too long, try again. (Max of 40 characters)");
                 i --; // Redo the current iteration
@@ -51,7 +51,7 @@ public class Main
         DealerPlayer dealer = new DealerPlayer(deck.draw(), deck.draw());
 
         // Main Game Loop
-        while (true) 
+        while(true)
         {
             System.out.println("================");
             System.out.println("Enter amount of money to bet for this round, and press enter");
@@ -91,10 +91,10 @@ public class Main
             System.out.println("Dealer's card: " + dealer.getPocketCard().toString());
             System.out.println("================");
 
-            for (Player player : players)
+            for(Player player : players)
             {
                 System.out.print(player.printFormatted());
-                while (player.getState() == "canHit") 
+                while(player.getState() == "canHit")
                 {
                     System.out.print(player.getName() + "'s turn (h for help): ");
                     String decision = br.readLine();
@@ -106,11 +106,11 @@ public class Main
                         case "stand":
                             player.stand();
                             break;
-                        case "double": 
+                        case "double":
                             if(player.getBet() < player.getMoney())
                                 player.doubleDown(deck.draw());
                             else
-                                System.out.println("Not enough money to double down"); 
+                                System.out.println("Not enough money to double down");
                             break;
                         case "surrender":
                             player.surrender();
@@ -118,7 +118,9 @@ public class Main
                         case "split":
                             System.out.println("Unimplemented feature!");
                             break;
-                        case "exit": case "quit": case "stop":
+                        case "exit":
+                        case "quit":
+                        case "stop":
                             System.out.println("Have a nice day!");
                             System.exit(0);
                         case "h": // Display Help Commands
@@ -135,7 +137,7 @@ public class Main
                     }
 
                     //if(player.getState() != "surrender")
-                        System.out.print(player.printFormatted());
+                    System.out.print(player.printFormatted());
                 }
                 System.out.print("Press Enter to continue");
                 System.in.read();
@@ -144,15 +146,15 @@ public class Main
 
             System.out.println("Dealer's turn:\n");
             System.out.print(dealer.printFormatted());
-            while (dealer.getState() == "canHit") 
+            while(dealer.getState() == "canHit")
             {
                 dealer.hit(deck.draw());
                 System.out.print(dealer.printFormatted());
             }
-            
+
             int dealerScore = dealer.getScore();
-            int playerScore = 0; 
-            
+            int playerScore = 0;
+
             // Go through different loops depending on if dealer has busted or not
             if(dealer.getState() != "bust")
             {
@@ -162,23 +164,27 @@ public class Main
                     String state = current.getState();
                     if(state == "bust")
                     {
-                        System.out.print(current.getName() + " busted! (lost $" + current.getBet() + ")");
+                        System.out.print(current.getName() + " busted! (lost $" + current.getBet() +
+                                         ")");
                         // Don't need to pay dealer, he has infinite money
                     }
                     else if(state == "surrender")
                     {
-                        System.out.print(current.getName() + " surrendered! (lost $" + current.getBet()/2 + ")");
+                        System.out.print(current.getName() + " surrendered! (lost $" + current.getBet()
+                                         / 2 + ")");
                     }
                     else if(playerScore > dealerScore)
                     {
                         if(state == "blackjack")
                         {
-                            System.out.print(current.getName() + " has BlackJack! (won $" + current.getBet() * 1.5 + ")");
+                            System.out.print(current.getName() + " has BlackJack! (won $" + current.getBet()
+                                             * 1.5 + ")");
                             current.blackjack();
                         }
                         else
                         {
-                            System.out.print(current.getName() + " won $" + current.getBet() + " from the Dealer!");
+                            System.out.print(current.getName() + " won $" + current.getBet() +
+                                             " from the Dealer!");
                             current.winDealer();
                         }
                     }
@@ -189,12 +195,13 @@ public class Main
                     }
                     else
                     {
-                        System.out.print(current.getName() + " lost $" + current.getBet() + " to the Dealer!");
+                        System.out.print(current.getName() + " lost $" + current.getBet() +
+                                         " to the Dealer!");
                         // Don't need to pay dealer, he has infinite money
                     }
                     //Additionally, print the score of the player
                     if(state != "bust" || state != "blackjack")
-                        System.out.println(" (Score of " + current.getScore() + ")"); 
+                        System.out.println(" (Score of " + current.getScore() + ")");
                     else
                         System.out.println();
                 }
@@ -206,25 +213,28 @@ public class Main
                 for(Player current : players)
                 {
                     String state = current.getState();
-                    if(state == "bust") 
+                    if(state == "bust")
                     {
                         System.out.println(current.getName() + " busted too! (no money lost)");
                         current.tie();
                     }
                     else if(state == "surrender")
                     {
-                        System.out.println(current.getName() + " surrendered! (lost $" + current.getBet()/2 + ")");
+                        System.out.println(current.getName() + " surrendered! (lost $" +
+                                           current.getBet() / 2 + ")");
                     }
                     else
                     {
                         if(state == "blackjack")
                         {
-                            System.out.println(current.getName() + " has BlackJack! (won $" + current.getBet() * 1.5 + ")");
+                            System.out.println(current.getName() + " has BlackJack! (won $" +
+                                               current.getBet() * 1.5 + ")");
                             current.blackjack();
                         }
                         else
                         {
-                            System.out.println(current.getName() + " won $" + current.getBet() + " from the Dealer!");
+                            System.out.println(current.getName() + " won $" + current.getBet() +
+                                               " from the Dealer!");
                             current.winDealer();
                         }
                     }
@@ -263,7 +273,7 @@ public class Main
         for(int i = 0; i < length; i ++)
         {
             char current = toParse.charAt(i);
-            if( (int) current < '0' && (int) current > '9')
+            if((int) current < '0' && (int) current > '9')
                 return -1;
             int digit = current - '0';
 
@@ -273,7 +283,6 @@ public class Main
 
         return num;
     }
-
 }
 
 
