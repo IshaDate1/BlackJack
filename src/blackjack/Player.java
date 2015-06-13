@@ -58,6 +58,11 @@ public class Player
             toPrint += "\n" + _name + " stands!\n";
             toPrint += "===============\n";
         }
+        else if(_state == "surrender")
+        {
+            toPrint += "\n" + _name + " surrenders!\n";
+            toPrint += "===============\n";
+        }
         else
         {
             toPrint += "---------------\n";
@@ -97,35 +102,47 @@ public class Player
             return false;
     }
 
-    public void payDealer()
+    public void doubleDown(Card card)
     {
-        // Dealer has infinite money, so just reset the amount bet
-        _bet = 0;
+        // Double the bet
+        _money -= _bet;
+        _bet *= 2;
+
+        _hand.hit(card);
+            
+        if (_hand.getScore() > 21)
+            _state = "bust";
+        else
+            _state = "stand"; // Can't receive any more cards
+    }
+
+    public void surrender()
+    {
+        _money += _bet/2;
+        _state = "surrender";
     }
 
     public void tie()
     {
         // Don't lose any money
         _money += _bet;
-        _bet = 0;
     }
 
     public void winDealer()
     {
         // Receive your original bet + same amount from dealer
         _money += 2 * _bet;
-        _bet = 0;
     }
 
     public void blackjack()
     {
         // Dealer pays 1.5 times the original bet in addition to original bet
         _money += 2.5 * _bet;
-        _bet = 0;
     }
 
     public ArrayList<Card> resetHand()
     {
+        _bet = 0;
         return _hand.returnCards();
     }
 
