@@ -68,7 +68,7 @@ public class Main
                     continue;
                 }
 
-                System.out.print("($" + moneyLeft + " left) " + player.getName() + " bets ");
+                System.out.print("($" + moneyLeft + " left) " + player.getName() + " bets $");
                 int bet = parseInt(br.readLine());
                 while(bet < 1 || bet > moneyLeft)
                 {
@@ -149,34 +149,37 @@ public class Main
                     playerScore = current.getScore();
                     if(current.getState() == "bust")
                     {
-                        System.out.print(current.getName() + " busted!");
+                        System.out.print(current.getName() + " busted! (lost $" + current.getBet() +  ")");
                         current.payDealer();
                     }
                     else if(playerScore > dealerScore)
                     {
                         if(current.getState() == "blackjack")
                         {
-                            System.out.print(current.getName() + " has BlackJack!");
+                            System.out.print(current.getName() + " has BlackJack! (won $" + current.getBet() * 1.5 + ")");
                             current.blackjack();
                         }
                         else
                         {
-                            System.out.print(current.getName() + " won over the Dealer!");
+                            System.out.print(current.getName() + " won $" + current.getBet() + " from the Dealer!");
                             current.winDealer();
                         }
                     }
                     else if(playerScore == dealerScore)
                     {
-                        System.out.print(current.getName() + " tied with the Dealer!");
+                        System.out.print(current.getName() + " tied with the Dealer! (no money lost)");
                         current.tie();
                     }
                     else
                     {
-                        System.out.print(current.getName() + " lost to the Dealer!");
+                        System.out.print(current.getName() + " lost $" + current.getBet() + " to the Dealer!");
                         current.payDealer();
                     }
                     //Additionally, print the score of the player
-                    System.out.println(" (Score of " + current.getScore() + ")"); 
+                    if(current.getState() != "bust")
+                        System.out.println(" (Score of " + current.getScore() + ")"); 
+                    else
+                        System.out.println();
                 }
             }
             else
@@ -189,12 +192,12 @@ public class Main
                     {
                         if(current.getState() == "blackjack")
                         {
-                            System.out.println(current.getName() + " has BlackJack!");
+                            System.out.println(current.getName() + " has BlackJack! (won $" + current.getBet() * 1.5 + ")");
                             current.blackjack();
                         }
                         else
                         {
-                            System.out.println(current.getName() + " won over the Dealer!");
+                            System.out.println(current.getName() + " won $" + current.getBet() + " from the Dealer!");
                             current.winDealer();
                         }
                     }

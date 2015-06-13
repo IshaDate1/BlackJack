@@ -153,4 +153,9 @@ public class Player
     {
         return _money;
     }
+
+    public int getBet()
+    {
+        return _bet;
+    }
 }
