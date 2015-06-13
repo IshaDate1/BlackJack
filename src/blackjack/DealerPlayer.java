@@ -27,6 +27,18 @@ public class DealerPlayer extends Player
             throw new RuntimeException("Can't hit. Object state: " + _state);
     }
 
+    @Override
+    public void newHand(Card card1, Card card2)
+    {
+        _state = "canHit";
+        _hand.newHand(card1, card2);
+
+        if (_hand.getScore() == 21)
+            _state = "blackjack";
+        else if (_hand.getScore() >= 17) // dealer must stand at 17
+            _state = "stand";
+    }
+
     public Card getPocketCard()
     {
         return _hand.getCards().get(0);
